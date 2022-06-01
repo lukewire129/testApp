@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:vm="clr-namespace:testApp.ViewModels"
+             mc:Ignorable="d"
+             x:Name="this"
+             x:Class="testApp.Views.LoginPage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout  BindableLayout.ItemsSource="{Binding items}" Margin="10,10" Grid.Row="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HeightRequest="60">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                      Text="{Binding Name}" FontSize="Medium"
+                                      VerticalTextAlignment="Center"/>
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HeightRequest="40" WidthRequest="40" Padding="0,0" VerticalOptions="Center" HorizontalOptions="Center">
+                                    <Button Text="-" FontSize="Small" BackgroundColor="IndianRed"
+                                                Command="{Binding Source={x:Reference this},Path=BindingContext.MinusItem}" CommandParameter="{Binding .}"/>
+                                </Grid>
+                                <Label  Grid.Column="1" WidthRequest="40" HorizontalTextAlignment="Center"
+                                            Text="{Binding count}" FontSize="Large"
+                                            VerticalTextAlignment="Center"/>
+                                <Grid Grid.Column="2" HeightRequest="40" WidthRequest="40" Padding="0,0" VerticalOptions="Center" HorizontalOptions="Center">
+                                    <Button Text="+" FontSize="Small" BackgroundColor="DarkSeaGreen"
+                                                Command="{Binding Source={x:Reference this},Path=BindingContext.PlusItem}" CommandParameter="{Binding .}"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <Button Grid.Row="1" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"
+                        Text="확정!!!!!!!!" Clicked="Button_Clicked"
+                        Command="{Binding Source={x:Reference this},Path=BindingContext.Confirm}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
